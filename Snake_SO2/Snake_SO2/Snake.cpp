@@ -23,28 +23,28 @@ void Snake::start()
 {
 	srand(static_cast<unsigned int> (time(NULL)));
 
-	std::thread a (&Snake::clearMap, this);
+	std::thread clearMapThread (&Snake::clearMap, this);
 
-	std::thread b (&Snake::addFrame, this);
+	std::thread addFrameThread (&Snake::addFrame, this);
 	while (!frameReady_)
 		std::this_thread::yield;
 
-	std::thread c (&Snake::addSnake, this);
+	std::thread addSnakeThread (&Snake::addSnake, this);
 	while (!snakeReady_)
 		std::this_thread::yield;
 
-	std::thread d (&Snake::addFood, this);
+	std::thread addFoodThread (&Snake::addFood, this);
 
 	draw();
 
-	std::thread e (&Snake::tick, this);
+	std::thread changeDirectionThread (&Snake::tick, this);
 	std::thread keyboard(&Snake::changeDirection, this);
 
-	a.join();
-	b.join();
-	c.join();
-	d.join();
-	e.join();
+	clearMapThread.join();
+	addFrameThread.join();
+	addSnakeThread.join();
+	addFoodThread.join();
+	changeDirectionThread.join();
 	keyboard.join();
 }
 
