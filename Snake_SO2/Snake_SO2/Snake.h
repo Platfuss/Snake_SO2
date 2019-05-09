@@ -3,9 +3,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-#include <iostream>
 #include <chrono>
-#include <conio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <curses.h>

@@ -1,7 +1,3 @@
 ﻿  Source.cpp
-c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\conio.h(452): warning C4002: too many actual parameters for macro 'getch'
-c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\conio.h(452): warning C4229: anachronism used: modifiers on data are ignored
-c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\conio.h(452): error C2365: 'wgetch': redefinition; previous definition was 'function'
-  c:\users\michal\source\repos\korbuzz\snake_so2\snake_so2\packages\pdcurses34.3.4.0.1\build\native\include\curses.h(1106): note: see declaration of 'wgetch'
-c:\program files (x86)\windows kits\10\include\10.0.15063.0\ucrt\conio.h(466): error C2375: 'PDC_ungetch': redefinition; different linkage
-  c:\users\michal\source\repos\korbuzz\snake_so2\snake_so2\packages\pdcurses34.3.4.0.1\build\native\include\curses.h(1308): note: see declaration of 'PDC_ungetch'
+  Snake_SO2.vcxproj -> C:\Users\Michal\Source\Repos\Korbuzz\Snake_SO2\Snake_SO2\Debug\Snake_SO2.exe
+  Snake_SO2.vcxproj -> C:\Users\Michal\Source\Repos\Korbuzz\Snake_SO2\Snake_SO2\Debug\Snake_SO2.pdb (Partial PDB)

@@ -61,7 +61,9 @@ void Snake::clearMap()
 		}
 		frameReady_ = snakeReady_ = nextTick_ = false;
 
-		system("cls");
+		//system("cls");
+		move(0, 0);
+		refresh();
 		condVarTick.notify_one();
 		condVarClearMap.wait(lck, [this] {return nextTick_ == true; });
 	}
@@ -74,17 +76,17 @@ void Snake::addFrame()
 	while (!endGame_) {
 		std::unique_lock<std::mutex> lck(mtx);
 		for (int i = 1; i < mapVertical_ - 1; ++i) {
-			map_[i][0] = map_[i][mapHorizontal_ - 1] = static_cast <unsigned char> (186);
+			map_[i][0] = map_[i][mapHorizontal_ - 1] = static_cast <unsigned char> (120);
 		}
 
 		for (int j = 1; j < mapHorizontal_ - 1; ++j) {
-			map_[0][j] = map_[mapVertical_ - 1][j] = static_cast <unsigned char> (205);
+			map_[0][j] = map_[mapVertical_ - 1][j] = static_cast <unsigned char> (113);
 		}
 
-		map_[0][0] = static_cast <unsigned char> (201);
-		map_[0][mapHorizontal_ - 1] = static_cast <unsigned char> (187);
-		map_[mapVertical_ - 1][mapHorizontal_ - 1] = static_cast <unsigned char> (188);
-		map_[mapVertical_ - 1][0] = static_cast <unsigned char> (200);
+		map_[0][0] = static_cast <unsigned char> (108);
+		map_[0][mapHorizontal_ - 1] = static_cast <unsigned char> (107);
+		map_[mapVertical_ - 1][mapHorizontal_ - 1] = static_cast <unsigned char> (106);
+		map_[mapVertical_ - 1][0] = static_cast <unsigned char> (109);
 
 		frameReady_ = true;
 		condVarTick.notify_one();
@@ -101,7 +103,7 @@ void Snake::addSnake()
 
 		moveSnake();
 
-		map_ [snakeBody_[0].first] [snakeBody_[0].second] = static_cast <unsigned char> (254);
+		map_ [snakeBody_[0].first] [snakeBody_[0].second] = static_cast <unsigned char> (96);
 
 		for (int i = 1; i < snakeBody_.size(); ++i) {
 			if (i < snakeBody_.size() - 1) {
@@ -186,7 +188,7 @@ void Snake::addFood()
 				foodPosition_.first = rand() % freeField.size();
 				foodPosition_.second = rand() % freeField[foodPosition_.first].size();
 			}
-			map_[foodPosition_.first][foodPosition_.second] = static_cast <unsigned char> (248);
+			map_[foodPosition_.first][foodPosition_.second] = static_cast <unsigned char> (183);
 		}
 		else {
 			endGame_ = true;
@@ -200,9 +202,11 @@ void Snake::draw()
 {
 	for (int i = 0; i < mapVertical_; ++i) {
 		for (int j = 0; j < mapHorizontal_; ++j) {
-			std::cout << map_[i][j];
+			addch(map_[i][j] | A_ALTCHARSET);
+			//std::cout << map_[i][j];
 		}
-		std::cout << std::endl;
+		printw("\n");
+		//std::cout << std::endl;
 	}
 }
 
@@ -212,7 +216,7 @@ void Snake::tick()
 {
 	std::unique_lock<std::mutex> lck(mtx);
 	while (!endGame_) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(150));
+		std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
 		nextTick_ = true;
 
@@ -239,31 +243,25 @@ void Snake::tick()
 
 void Snake::changeDirection()
 {
-	const int keyUp = 72;
-	const int keyDown = 80;
-	const int keyLeft = 75;
-	const int keyRight = 77;
-
 	while (!endGame_) {
-		int key = _getch();
-		if (key == 0 || key == 0xE0) {
-			switch (key = _getch()) {
-			case keyUp:
-				direction_ = 0;
-				break;
-			case keyDown:
-				direction_ = 1;
-				break;
-			case keyRight:
-				direction_ = 2;
-				break;
-			case keyLeft:
-				direction_ = 3;
-				break;
-			default:
-				break;
-			}
+		int key = getch();
+		switch (key = getch()) {
+		case KEY_UP:
+			direction_ = 0;
+			break;
+		case KEY_DOWN:
+			direction_ = 1;
+			break;
+		case KEY_RIGHT:
+			direction_ = 2;
+			break;
+		case KEY_LEFT:
+			direction_ = 3;
+			break;
+		default:
+			break;
 		}
+		
 	}
 }
 
