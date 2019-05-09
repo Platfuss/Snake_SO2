@@ -1,4 +1,4 @@
-#include <iostream>
+#include <curses.h>
 
 #include "Snake.h"
 
@@ -6,12 +6,10 @@
 
 int main()
 {
+	initscr();
 	Snake snake;
 	snake.start();
-	
-	system("cls");
-	std::cout << "Gra skonczona" << std::endl;
 
-	getchar();
+	_getch();
 	return 0;
 }

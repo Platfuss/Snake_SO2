@@ -8,6 +8,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <curses.h>
 
 class Snake
 {
@@ -17,12 +18,11 @@ public:
 	void start();
 private:
 	std::mutex mtx;
-	std::condition_variable 
-		condVarClearMap, 
-		condVarAddFrame,
-		condVarAddSnake,
-		condVarAddFood,
-		condVarTick;
+	std::condition_variable condVarClearMap, 
+							condVarAddFrame,
+							condVarAddSnake,
+							condVarAddFood,
+							condVarTick;
 	std::vector < std::vector <unsigned char> > map_;
 	std::vector < std::pair <int, int> > snakeBody_;
 
