@@ -23,8 +23,6 @@ Snake::~Snake()
 
 void Snake::start()
 {
-	srand(static_cast<unsigned int> (time(NULL)));
-
 	std::thread clearMapThread(&Snake::clearMap, this);
 
 	std::thread addFrameThread(&Snake::addFrame, this);
@@ -172,6 +170,7 @@ void Snake::addSnake()
 
 void Snake::addFood()
 {
+	srand(static_cast<unsigned int> (time(NULL)));
 	while (!endGame_) {
 		std::vector<std::vector<int>> freeField(mapVertical_);
 		int emptyPoints = 0;
