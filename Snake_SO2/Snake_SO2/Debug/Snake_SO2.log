@@ -5,6 +5,6 @@ n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(30): warning C4551: fu
 n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(34): warning C4551: function call missing argument list
 n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(108): warning C4018: '<': signed/unsigned mismatch
 n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(109): warning C4018: '<': signed/unsigned mismatch
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(314): warning C4018: '<': signed/unsigned mismatch
+n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(315): warning C4018: '<': signed/unsigned mismatch
   Snake_SO2.vcxproj -> N:\GithubProjects\Snake_SO2\Snake_SO2\Debug\Snake_SO2.exe
   Snake_SO2.vcxproj -> N:\GithubProjects\Snake_SO2\Snake_SO2\Debug\Snake_SO2.pdb (Partial PDB)
