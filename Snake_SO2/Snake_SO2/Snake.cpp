@@ -187,7 +187,10 @@ void Snake::addFood()
 		if (emptyPoints > 5) {
 			while (foodPosition_.first <= 0 || foodPosition_.second <= 0 || foodPosition_.first == mapVertical_ - 1 || foodPosition_.second == mapHorizontal_ - 1) {
 				foodPosition_.first = rand() % freeField.size();
+				if (freeField[foodPosition_.first].size() == 0)
+					continue;
 				foodPosition_.second = rand() % freeField[foodPosition_.first].size();
+			
 			}
 
 			map_[foodPosition_.first][foodPosition_.second] = static_cast <unsigned char> (176);

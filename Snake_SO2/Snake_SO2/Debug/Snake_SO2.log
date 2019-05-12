@@ -1,10 +1,2 @@
-﻿  Snake.cpp
-c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\wincon.h(123): warning C4005: 'MOUSE_MOVED': macro redefinition
-  n:\githubprojects\snake_so2\snake_so2\packages\pdcurses34.3.4.0.1\build\native\include\curses.h(153): note: see previous definition of 'MOUSE_MOVED'
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(30): warning C4551: function call missing argument list
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(34): warning C4551: function call missing argument list
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(108): warning C4018: '<': signed/unsigned mismatch
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(109): warning C4018: '<': signed/unsigned mismatch
-n:\githubprojects\snake_so2\snake_so2\snake_so2\snake.cpp(315): warning C4018: '<': signed/unsigned mismatch
-  Snake_SO2.vcxproj -> N:\GithubProjects\Snake_SO2\Snake_SO2\Debug\Snake_SO2.exe
-  Snake_SO2.vcxproj -> N:\GithubProjects\Snake_SO2\Snake_SO2\Debug\Snake_SO2.pdb (Partial PDB)
+﻿  Source.cpp
+  Snake_SO2.vcxproj -> C:\Users\Korbuzz\Source\Repos\Snake_SO22\Snake_SO2\Debug\Snake_SO2.exe
