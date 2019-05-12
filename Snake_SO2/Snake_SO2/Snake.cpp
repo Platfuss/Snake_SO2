@@ -1,4 +1,6 @@
 #include "Snake.h"
+#include <curses.h>
+#include <windows.h>
 
 
 
@@ -7,7 +9,7 @@ Snake::Snake()
 	for (int i = 0; i < mapVertical_; ++i) {
 		map_.push_back(std::vector<unsigned char>(mapHorizontal_));
 	}
-	std::pair <int, int> part (mapVertical_ / 2, mapHorizontal_ / 2);
+	std::pair <int, int> part(mapVertical_ / 2, mapHorizontal_ / 2);
 	snakeBody_.push_back(part);
 }
 
@@ -23,21 +25,21 @@ void Snake::start()
 {
 	srand(static_cast<unsigned int> (time(NULL)));
 
-	std::thread clearMapThread (&Snake::clearMap, this);
+	std::thread clearMapThread(&Snake::clearMap, this);
 
-	std::thread addFrameThread (&Snake::addFrame, this);
+	std::thread addFrameThread(&Snake::addFrame, this);
 	while (!frameReady_)
 		std::this_thread::yield;
 
-	std::thread addSnakeThread (&Snake::addSnake, this);
+	std::thread addSnakeThread(&Snake::addSnake, this);
 	while (!snakeReady_)
 		std::this_thread::yield;
 
-	std::thread addFoodThread (&Snake::addFood, this);
+	std::thread addFoodThread(&Snake::addFood, this);
 
 	draw();
 
-	std::thread changeDirectionThread (&Snake::tick, this);
+	std::thread changeDirectionThread(&Snake::tick, this);
 	std::thread keyboard(&Snake::changeDirection, this);
 
 	clearMapThread.join();
@@ -103,60 +105,60 @@ void Snake::addSnake()
 
 		moveSnake();
 
-		map_ [snakeBody_[0].first] [snakeBody_[0].second] = static_cast <unsigned char> (96);
+		map_[snakeBody_[0].first][snakeBody_[0].second] = static_cast <unsigned char> (96);
 
 		for (int i = 1; i < snakeBody_.size(); ++i) {
 			if (i < snakeBody_.size() - 1) {
 				if (snakeBody_[i - 1].first < snakeBody_[i].first && snakeBody_[i - 1].second == snakeBody_[i].second) {
 
 					if (snakeBody_[i + 1].first > snakeBody_[i].first &&  snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (179);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (120);
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first &&  snakeBody_[i + 1].second < snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (217);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (106);
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first &&  snakeBody_[i + 1].second > snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (192);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (109);
 				}
 				else if (snakeBody_[i - 1].first == snakeBody_[i].first && snakeBody_[i - 1].second > snakeBody_[i].second) {
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first && snakeBody_[i + 1].second < snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (196);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (113);
 
 					if (snakeBody_[i + 1].first < snakeBody_[i].first && snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (192);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (109);
 
 					if (snakeBody_[i + 1].first > snakeBody_[i].first && snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (218);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (108);
 				}
 				else if (snakeBody_[i - 1].first > snakeBody_[i].first && snakeBody_[i - 1].second == snakeBody_[i].second) {
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first && snakeBody_[i + 1].second > snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (218);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (108);
 
 					if (snakeBody_[i + 1].first < snakeBody_[i].first && snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (179);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (120);
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first && snakeBody_[i + 1].second < snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (191);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (107);
 				}
 				else if (snakeBody_[i - 1].first == snakeBody_[i].first && snakeBody_[i - 1].second < snakeBody_[i].second) {
 
 					if (snakeBody_[i + 1].first < snakeBody_[i].first && snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (217);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (106);
 
 					if (snakeBody_[i + 1].first == snakeBody_[i].first && snakeBody_[i + 1].second > snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (196);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (113);
 
 					if (snakeBody_[i + 1].first > snakeBody_[i].first && snakeBody_[i + 1].second == snakeBody_[i].second)
-						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (191);
+						map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (107);
 				}
 			}
 			else if (snakeBody_[i - 1].first != snakeBody_[i].first) {
-				map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (179);
+				map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (120);
 			}
 			else if (snakeBody_[i - 1].second != snakeBody_[i].second) {
-				map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (196);
+				map_[snakeBody_[i].first][snakeBody_[i].second] = static_cast <unsigned char> (113);
 			}
 		}
 
@@ -171,7 +173,7 @@ void Snake::addSnake()
 void Snake::addFood()
 {
 	while (!endGame_) {
-		std::vector<std::vector<int>> freeField (mapVertical_);
+		std::vector<std::vector<int>> freeField(mapVertical_);
 		int emptyPoints = 0;
 		std::unique_lock<std::mutex> lck(mtx);
 		for (int i = 0; i < mapVertical_; ++i) {
@@ -188,7 +190,7 @@ void Snake::addFood()
 				foodPosition_.first = rand() % freeField.size();
 				foodPosition_.second = rand() % freeField[foodPosition_.first].size();
 			}
-			map_[foodPosition_.first][foodPosition_.second] = static_cast <unsigned char> (183);
+			map_[foodPosition_.first][foodPosition_.second] = static_cast <unsigned char> (176);
 		}
 		else {
 			endGame_ = true;
@@ -216,7 +218,7 @@ void Snake::tick()
 {
 	std::unique_lock<std::mutex> lck(mtx);
 	while (!endGame_) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(250));
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
 		nextTick_ = true;
 
@@ -238,14 +240,14 @@ void Snake::tick()
 	condVarAddFrame.notify_one();
 	condVarAddSnake.notify_one();
 	condVarAddFood.notify_one();
-	
+
 }
 
 void Snake::changeDirection()
 {
 	while (!endGame_) {
 		int key = getch();
-		switch (key = getch()) {
+		switch (key) {
 		case KEY_UP:
 			direction_ = 0;
 			break;
@@ -261,7 +263,7 @@ void Snake::changeDirection()
 		default:
 			break;
 		}
-		
+
 	}
 }
 
@@ -290,7 +292,7 @@ void Snake::moveSnake()
 	std::pair<int, int> part;
 
 
-	if (map_[snakeBody_[0].first][snakeBody_[0].second] == 248) {
+	if (map_[snakeBody_[0].first][snakeBody_[0].second] == 176) {
 		foodPosition_.first = foodPosition_.second = -1;
 		doGrow = true;
 		part = snakeBody_[snakeBody_.size() - 1];
